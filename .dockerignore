@@ -1,7 +1,0 @@
-.venv
-venv
-pyvenv.cfg
-Include
-Lib
-Scripts
-media/
