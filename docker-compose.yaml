@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      USERNAME: "admin"
+      PASSWORD: "admin123"
+      DB_URL: postgresql+asyncpg://facematch:facematch@database:5432/facematch
+    env_file:
+      - .env
+    volumes:
+      - media-data:/app/media
+    restart: always
+  database:
+    image: postgres:13.6-alpine
+    environment:
+      POSTGRES_USER: facematch
+      POSTGRES_DB: facematch
+      POSTGRES_PASSWORD: facematch
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: always
+  nginx:
+    image: nginx:1.21.6-alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+      - media-data:/opt/volume/media
+    ports:
+      - 8000:80
+
+volumes:
+  pg-data:
+    driver: local
+  media-data:
+    driver: local
+

@@ -1,0 +1,13 @@
+.venv
+venv
+pyvenv.cfg
+Include
+Lib
+Scripts
+media/
+.idea/
+
+*.pyc
+__pycache__
+
+.env
